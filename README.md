@@ -23,3 +23,7 @@ bin/kafka-console-producer.sh --topic sensor --bootstrap-server localhost:9092
 ```java
 bin/kafka-console-producer.sh --topic sensor --broker-list localhost:9092
 ```
+5. 指定topic接受/消费消息
+```java
+bin/kafka-console-consumer.sh --topic sinktest --from-beginning --bootstrap-server localhost:9092 
+```

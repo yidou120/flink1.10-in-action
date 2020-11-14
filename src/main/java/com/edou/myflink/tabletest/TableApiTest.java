@@ -68,8 +68,17 @@ public class TableApiTest {
 //        tEnv.toAppendStream(out,tuple2TupleTypeInfo).print("result");
 
         Table kafkaInputTable = tEnv.from("kafkaInputTable");
+        // 聚合操作
+        Table aggOut = kafkaInputTable.groupBy("id")
+                .select("id,id.count as count");
+        TupleTypeInfo<Tuple2<String,Long>> tupe2Retract = new TupleTypeInfo<>(
+                Types.STRING,
+                Types.LONG
+        );
+        tEnv.toRetractStream(aggOut, tupe2Retract).print("retract");
+
         Table kafkaOut = kafkaInputTable.select("id,temperature").filter("id === 'sensor_1'");
-        tEnv.toAppendStream(kafkaOut,tuple2TupleTypeInfo).print();
+        tEnv.toAppendStream(kafkaOut,tuple2TupleTypeInfo).print("kafka");
 
         env.execute("start...");
     }
