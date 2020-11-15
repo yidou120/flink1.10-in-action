@@ -27,3 +27,11 @@ bin/kafka-console-producer.sh --topic sensor --broker-list localhost:9092
 ```java
 bin/kafka-console-consumer.sh --topic sinktest --from-beginning --bootstrap-server localhost:9092 
 ```
+### 注意
+1. 安装了kafka之后需要修改conf下的server.properties这两个属性
+```java
+# 允许外部端口连接                                            
+listeners=PLAINTEXT://0.0.0.0:9092  
+# 外部代理地址                                                
+advertised.listeners=PLAINTEXT://121.201.64.12:9092
+```
